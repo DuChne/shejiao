@@ -1,0 +1,137 @@
+{template '_header'}
+<div class="page-heading">
+	<h2>编辑 核销商品核销信息</small></h2>
+</div>
+ 
+    <form {ife 'shop.verify.store' $item}action="" method="post"{/if} class="form-horizontal form-validate" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$verifygoods['id']}" />
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">核销商品核销ID</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class='form-control-static'>{$verifygoods['id']}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">商品logo</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class='form-control-static'><img src="{php echo tomedia($verifygoods['thumb'])}" style="width:80px;height:80px;padding:1px;border:1px solid #ccc;"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">商品名称</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class='form-control-static'>{$verifygoods['title']}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">订单号</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class='form-control-static'>{$verifygoods['ordersn']}</div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">购买人</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class='form-control-static'>{$username}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">手机号</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class='form-control-static'>{$mobile}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">购买时间</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class='form-control-static'>{php echo date('Y-m-d H:i:s',$verifygoods['paytime'])}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">有效天数</label>
+            <div class="col-sm-9 col-xs-12">
+
+                {ife 'shop.verify.store' $item}
+                <input type="text" name="limitdays" class="form-control" value="{$verifygoods['limitdays']}" data-rule-required="true" />
+                <div class="help-block">设置为空或者0则默认为365天</div>
+                {else}
+                <div class='form-control-static'>{$verifygoods['limitdays']}</div>
+                {/if}
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">有效期截止</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class='form-control-static'>{php echo  date('Y-m-d H:i:s',  intval($verifygoods['starttime']) +  $verifygoods['limitdays']*86400  )}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">可核销次数</label>
+            <div class="col-sm-9 col-xs-12">
+                {ife 'shop.verify.store' $item}
+                    <input type="text" name="limitnum" class="form-control" value="{$verifygoods['limitnum']}" data-rule-required="true" />
+                    <div class="help-block">设置为空或者0则为不限制核销次数</div>
+                {else}
+                    <div class='form-control-static'>{$verifygoods['limitnum']}</div>
+                {/if}
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">已核销次数</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class='form-control-static'>{$verifynum}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">剩余核销次数</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class='form-control-static'>
+                    {if !empty($verifygoods['limitnum'])}
+                        {php echo $verifygoods['limitnum'] - $verifynum}
+                    {else}
+                        不限次数
+                    {/if}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">是否有效</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'store.verifygoods.detail'}
+                    <label class="radio-inline">
+                        <input type="radio" value="0" name='invalid' {if empty($verifygoods['invalid'])}checked{/if} /> 有效
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="1" name='invalid' {if !empty($verifygoods['invalid'])}checked{/if} /> 无效
+                    </label>
+                {else}
+                    <div class='form-control-static'>{if empty($verifygoods['invalid'])}有效{else}无效{/if}</div>
+                {/if}
+            </div>
+        </div>
+
+        <div class="form-group"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-9 col-xs-12">
+               {ife 'store.verifygoods.detail' $item}
+                    <input type="submit" value="提交" class="btn btn-primary"  />
+                {/if}
+               <input type="button" name="back" onclick='history.back()' {ifp 'shop.verify.store.add|shop.verify.store.edit'}style='margin-left:10px;'{/if} value="返回列表" class="btn btn-default" />
+            </div>
+        </div>
+ </form>
+{template '_footer'}

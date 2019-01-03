@@ -1,0 +1,7 @@
+{if mcom("informaction")}
+<div class='menu-header'>基本</div>
+<ul>
+    {ifp 'information.lr_number'}<li {if $_W['routes']=='information.lr_number'}class="active"{/if}><a href="{php echo merchUrl('information/lr_number')}">能人号</a></li>{/if}
+    {ifp 'information.cl_number'}<li {if $_W['routes']=='information.cl_number'}class="active"{/if}><a href="{php echo merchUrl('information/cl_number')}">畅聊号</a></li>{/if}
+</ul>
+{/if}

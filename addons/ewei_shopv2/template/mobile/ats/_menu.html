@@ -1,0 +1,45 @@
+<div class="fui-navbar">
+
+    <a href="/app/index.php?i=2&c=entry&do=index&m=tiger_newhu" class="external nav-item">
+
+        <span class="icon icon-home"></span>
+
+        <span class="label">优惠券</span>
+
+    </a>
+
+    <a href="/app/index.php?i=2&c=entry&do=lmsearch&m=tiger_newhu" class="external nav-item" >
+
+        <span class="icon icon-list"></span>
+
+        <span class="label">超级搜券</span>
+
+    </a>
+
+    <a href="{php echo mobileUrl()}" class="external nav-item {if $_W['routes']=='' ||  $_W['routes']=='shop' ||  $_W['routes']=='commission.myshop' || $_W['routes']=='goods'}active{/if}">
+
+        <span class="icon icon-group"></span>
+
+        <span class="label">会员套餐</span>
+
+    </a>
+    
+
+    <a href="/app/index.php?i=2&c=entry&m=tiger_newhu&hb=2&do=newcat" class="external nav-item " id="menucart">
+
+        <span class="icon icon-cart"></span>
+
+        <span class="label">抢购</span>
+
+    </a>
+
+    <a href="{php echo mobileUrl('member')}" class="external nav-item  {if $_W['routes']=='member'}active{/if}">
+
+        <span class="icon icon-person2"></span>
+
+        <span class="label">会员中心</span>
+
+    </a>
+
+</div>
+

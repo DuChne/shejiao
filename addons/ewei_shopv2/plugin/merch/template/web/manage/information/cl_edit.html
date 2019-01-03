@@ -1,0 +1,254 @@
+{template '_header'}
+<script type="text/javascript" src="./resource/components/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="./resource/components/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="./resource/components/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<div class="page-heading">
+	<span class='pull-right'>
+		{ifp 'shop.nav.add'}
+			<a class="btn btn-primary btn-sm" href="{php echo merchUrl('information/cl_edit')}">添加新首页导航</a>
+		{/if}
+		<a class="btn btn-default  btn-sm" href="{php echo merchUrl('information/cl_number')}">返回列表</a>
+
+	</span>
+    <h2>{if !empty($item['id'])}编辑{else}添加{/if}首页导航 <small>{if !empty($item['id'])}修改【{$item['title']}】{/if}</small></h2>
+</div>
+
+<form {ife 'information/cl_edit' $item}action="" method="post"{/if} class="form-horizontal form-validate" enctype="multipart/form-data">
+<input type="hidden" name="id" value="{$item['id']}" />
+<div class="form-group">
+    <label class="col-sm-2 control-label must">标题</label>
+    <div class="col-sm-9 col-xs-12 ">
+        {ife 'information/cl_edit' $item}
+        <input type="text" id='title' name="title" class="form-control" value="{$item['title']}" data-rule-required="true" />
+        {else}
+        <div class='form-control-static'>{$item['title']}</div>
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">封面</label>
+    <div class="col-sm-9 col-xs-12">
+        {ife 'information/cl_edit' $item}
+        {php echo tpl_form_field_image('head_img', $item['head_img'],'',array('dest_dir'=>'merch/'.$_W['merchid']))}
+        <span class='help-block'>建议尺寸:100 * 100 , 请将所有首页导航图片尺寸保持一致</span>
+        {else}
+        {if !empty($item['head_img'])}
+        <a href='{php echo tomedia($item['head_img'])}' target='_blank'>
+        <img src="{php echo tomedia($item['head_img'])}" style='width:100px;border:1px solid #ccc;padding:1px' />
+        </a>
+        {/if}
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">店铺链接</label>
+    <div class="col-sm-9 col-xs-12">
+        {ife 'information/cl_edit' $item}
+            <input type="text" value="{$item['merch_url']}" class="form-control"   name="merch_url" placeholder="">
+        {else}
+        <div class='form-control-static'>{$item['merch_url']}</div>
+        {/if}
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">内容</label>
+    <div class="col-sm-9 col-xs-12">
+        <textarea id="editor" name="content" type="text/plain" style="height:550px;">{$item['content']}</textarea>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">状态</label>
+    <div class="col-sm-9 col-xs-12">
+        {ife 'shop.nav' $item}
+        <label class='radio-inline'>
+            <input type='radio' name='is_show' value=1' {if $item['is_show']==1}checked{/if} /> 显示
+        </label>
+        <label class='radio-inline'>
+            <input type='radio' name='is_show' value=2' {if $item['is_show']==2}checked{/if} /> 隐藏
+        </label>
+        {else}
+        <div class='form-control-static'>{if 2 == $item['is_show']}隐藏{else}显示{/if}</div>
+        {/if}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label"></label>
+    <div class="col-sm-9 col-xs-12">
+        {ife 'shop.nav' $item}
+        <input type="submit" value="提交" class="btn btn-primary"  />
+        {/if}
+        <input type="button" name="back" onclick='history.back()' {ifp 'shop.nav.add|shop.nav.edit'}style='margin-left:10px;'{/if} value="返回列表" class="btn btn-default" />
+    </div>
+</div>
+
+</form>
+
+<script type="text/javascript">
+    var ueditoroption = {
+        'autoClearinitialContent' : false,
+        'toolbars' : [['fullscreen', 'source', 'preview', '|', 'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', '|',
+            'justifyleft', 'justifycenter', 'justifyright', '|', 'insertorderedlist', 'insertunorderedlist', 'blockquote', 'emotion',
+            'link', 'removeformat', '|', 'rowspacingtop', 'rowspacingbottom', 'lineheight','indent', 'paragraph', 'fontsize', '|',
+            'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol',
+            'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|', 'anchor', 'map', 'print', 'drafts']],
+        'elementPathEnabled' : false,
+        'initialFrameHeight': 550,
+        'focus' : false,
+        'maximumWords' : 9999999999999
+    };
+    var opts = {
+        type :'image',
+        direct : false,
+        multiple : true,
+        tabs : {
+            'upload' : 'active',
+            'browser' : '',
+            'crawler' : ''
+        },
+        path : '',
+        dest_dir : '',
+        global : false,
+        thumb : false,
+        width : 0,
+        fileSizeLimit : 10240000
+    };
+
+    // 初始化 系统链接选择
+    UE.registerUI('mylink', function(editor, uiName) {
+        var btn = new UE.ui.Button({
+            name: 'selectUrl',
+            title: '系统链接',
+            aaa: 'sadasd',
+            cssRules: 'background-position: -500px 0;',
+            onclick: function() {
+                $("#"+this.id).attr({"data-toggle": "selectUrl", "data-callback": "selectUrlCallback"});
+            }
+        });
+        editor.addListener('selectionchange', function() {
+            var state = editor.queryCommandState(uiName);
+            if (state == -1) {
+                btn.setDisabled(true);
+                btn.setChecked(false);
+            } else {
+                btn.setDisabled(false);
+                btn.setChecked(state);
+            }
+        });
+        return btn;
+    });
+    UE.registerUI('myinsertimage',function(editor,uiName){
+        editor.registerCommand(uiName, {
+            execCommand:function(){
+                require(['fileUploader'], function(uploader){
+                    uploader.show(function(imgs){
+                        if (imgs.length == 0) {
+                            return;
+                        } else if (imgs.length == 1) {
+                            editor.execCommand('insertimage', {
+                                'src' : imgs[0]['url'],
+                                '_src' : imgs[0]['url'],
+                                'width' : '100%',
+                                'alt' : imgs[0].filename
+                            });
+                        } else {
+                            var imglist = [];
+                            for (i in imgs) {
+                                imglist.push({
+                                    'src' : imgs[i]['url'],
+                                    '_src' : imgs[i]['url'],
+                                    'width' : '100%',
+                                    'alt' : imgs[i].filename
+                                });
+                            }
+                            editor.execCommand('insertimage', imglist);
+                        }
+                    }, opts);
+                });
+            }
+        });
+        var btn = new UE.ui.Button({
+            name: '插入图片',
+            title: '插入图片',
+            cssRules :'background-position: -726px -77px',
+            onclick:function () {
+                editor.execCommand(uiName);
+            }
+        });
+        editor.addListener('selectionchange', function () {
+            var state = editor.queryCommandState(uiName);
+            if (state == -1) {
+                btn.setDisabled(true);
+                btn.setChecked(false);
+            } else {
+                btn.setDisabled(false);
+                btn.setChecked(state);
+            }
+        });
+        return btn;
+    }, 19);
+
+    UE.registerUI('myinsertvideo',function(editor,uiName){
+        editor.registerCommand(uiName, {
+            execCommand:function(){
+                require(['fileUploader'], function(uploader){
+                    uploader.show(function(video){
+                        if (!video) {
+                            return;
+                        } else {
+                            var videoType = video.isRemote ? 'iframe' : 'video';
+                            editor.execCommand('insertvideo', {
+                                'url' : video.url,
+                                'width' : 300,
+                                'height' : 200
+                            }, videoType);
+                        }
+                    }, {fileSizeLimit : 5120000, type : 'video', allowUploadVideo : true});
+                });
+            }
+        });
+        var btn = new UE.ui.Button({
+            name: '插入视频',
+            title: '插入视频',
+            cssRules :'background-position: -320px -20px',
+            onclick:function () {
+                editor.execCommand(uiName);
+            }
+        });
+        editor.addListener('selectionchange', function () {
+            var state = editor.queryCommandState(uiName);
+            if (state == -1) {
+                btn.setDisabled(true);
+                btn.setChecked(false);
+            } else {
+                btn.setDisabled(false);
+                btn.setChecked(state);
+            }
+        });
+        return btn;
+    }, 20);
+
+    $(function(){
+        var ue = UE.getEditor('editor', ueditoroption);
+        $('#editor').data('editor', ue);
+        $('#editor').parents('form').submit(function() {
+            if (ue.queryCommandState('source')) {
+                ue.execCommand('source');
+            }
+        });
+        // 监听内容改变
+        ue.addListener('contentChange',function(){
+            $("#preview-content").html(ue.getContent());
+        });
+    });
+
+    // 选择链接 callback
+    function selectUrlCallback(href){
+        var ue =  UE.getEditor('editor');
+        if(href){
+            ue.execCommand('link', {href: href});
+        }
+    }
+</script>
+{template '_footer'}

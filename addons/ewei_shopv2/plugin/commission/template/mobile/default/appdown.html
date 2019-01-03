@@ -1,0 +1,217 @@
+{template '_header'}
+
+<style>
+    @charset "utf-8";
+    .downContent {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .downMiddle {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        border-top:1px solid #DAE2E3;
+    }
+    .downContent span.pattern {
+        width: 18%;
+        display: block;
+        position: absolute
+    }
+    .downContent span.pattern img {
+        width: 100%
+    }
+    .downContent span.left {
+        left: 0
+    }
+    .downContent span.right {
+        right: 0
+    }
+    .downCon {
+        display: table;
+        width: 100%;
+        height: 100%;
+    }
+    .dcBox {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle
+    }
+    .dcBox img {
+        width: 120px;
+    }
+    .dcBox h2 {
+        font-size: 1.6rem;
+        line-height: 1.6;
+        margin: 20px auto;
+        color: #505556
+    }
+    .textBox {
+        border-top: 1px solid #DAE2E3;
+        width: 60%;
+        margin: 0 auto;
+        padding: 30px 0;
+    }
+    .textBox p {
+        font-size: 1.2rem;
+        color: #A9B1B3;
+        line-height: 25px;
+    }
+    .textBox a {
+        display: block;
+        width: 100%;
+        border: 1px solid #A9B1B3;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 1.3rem;
+        color: #868C8E;
+        border-radius: 40px;
+        margin-top: 25px
+    }
+    .downBox{ padding:50px 20px; border-bottom:1px solid #A9B1B3}
+    .downBox h2{ font-size:1.6rem; margin-bottom:40px;}
+    .downBox p{ line-height:22px; font-size:1.3rem; color:#A9B1B3}
+    .list-wrapper{ overflow:hidden;overflow-x: scroll;max-width: 100%;}
+    .list-wrapper ul{display: block;margin: 0;padding: 0;list-style: none;white-space: nowrap;}
+    .list-wrapper ul li{ display: inline-block;padding-right: 20px;vertical-align: middle;}
+    .list-wrapper ul li img{max-height: 462px;}
+
+    tx_btn@charset "utf-8";
+    /* CSS Document */
+    * {
+        margin: 0px;
+        padding: 0px
+    }
+    li {
+        list-style: none
+    }
+    img{ vertical-align:top}
+    body {
+        background-color: #eeeeee;
+        color: #666;
+        font-family: "Microsoft Yahei", tahoma, arial;
+        font-size: 12px;
+    }
+    i, em {
+        font-style: normal;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0px;
+        font-weight: 100;
+        font-size: 1.2rem
+    }
+    ul, li, p {
+        margin: 0px;
+        padding: 0px;
+        font-size: 12px;
+    }
+    input, select, textarea {
+        font-size: 12px;
+        border: 0px;
+        padding: 0px;
+        font-family: "Microsoft Yahei", tahoma, arial;
+    }
+    /*media query*/
+    @media screen and (max-width:540px) {
+        body, html {
+            font-size: 16px;
+        }
+    }
+    @media screen and (max-width:480px) {
+        body, html {
+            font-size: 14px;
+        }
+    }
+    @media screen and (max-width:420px) {
+        body, html {
+            font-size: 12.5px;
+        }
+    }
+    @media screen and (max-width:360px) {
+        body, html {
+            font-size: 11.5px;
+        }
+    }
+    .center {
+        text-align: center
+    }
+    .left {
+        text-align: left
+    }
+    .right {
+        text-align: right
+    }
+    a {
+        text-decoration: none;
+        outline: none;
+    }
+    a {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+    }
+    .header a{ display:block; width:30px; margin-top:10px}
+    .header a img{ width:30px;}
+    .logoTit h2{line-height:18px; margin-top:-2px; background:url(../images/logo.png) no-repeat; background-size:35px; display:block; width:190px; margin:0 auto; padding-left:40px; font-size:14px;}
+
+    .navUl li{ padding:0 20px}
+    .navUl li a{ color:#888888; font-size:1.2rem; height:40px; line-height:40px;}
+    .navUl li.active a{ color:#fff}
+    .navUl li.last a{ color:#ff5601}
+
+    .footer a {
+        display: block;
+        width: 25%;
+        text-align: center;
+    }
+    .footer a img {
+        height: 25px;
+        margin-bottom:5px
+    }
+    .footer a p {
+        display: block;
+        line-height: 10px;
+        font-size: 14px;
+    }
+
+    .wxtip{background: rgba(0,0,0,0.8); text-align: center; position: fixed; left:0; top: 0; width: 100%; height: 100%; z-index: 998; display: none;}
+    .wxtip-icon{width: 52px; height: 67px; background: url(weixin-tip.png) no-repeat; display: block; position: absolute; right: 20px; top: 20px;}
+    .wxtip-txt{margin-top: 107px; color: #fff; font-size: 16px; line-height: 1.5;}
+</style>
+
+<div class="downContent">
+    <span class="pattern left"><img  src="{php echo tomedia('addons/ewei_shopv2/static/images/download_pattern_left.png')}" /></span>
+    <span class="pattern right"><img src="{php echo tomedia('addons/ewei_shopv2/static/images/download_pattern_right.png')}" /></span>
+    <div class="downCon">
+        <div class="dcBox"> <img src="{php echo tomedia($info['logo'])}" />
+            <h2>{$info['name']}</h2>
+            <div class="textBox">
+                <h2 class="center">下载APP</h2>
+            </div>
+            <div class="textBox">
+                <h2 class="center">内容提要：</h2>
+                {$info['description']}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wxtip" id="JweixinTip">
+    <span class="wxtip-icon"></span>
+    <p class="wxtip-txt">点击右上角<br/>选择在Safari中打开</p>
+</div>
+<!--如果检测到是微信浏览器并且是ios手机，则提醒点击右上角，使用浏览器打开-->
+<script language="javascript">
+    document.getElementById('JweixinTip').onclick=function(){
+        this.style.display='none';
+    }
+
+    var is_ios = "{$is_ios}";
+    var is_weixin = "{$is_wx}";
+    if(is_ios ==1 && is_weixin==1) document.getElementById('JweixinTip').style.display='block';
+</script>
+

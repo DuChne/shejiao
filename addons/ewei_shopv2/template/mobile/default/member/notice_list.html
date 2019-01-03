@@ -1,0 +1,36 @@
+{template '_header'}
+<div class='fui-page  fui-page-current'>
+    <div class="fui-header">
+        <div class="fui-header-left">
+            <a class="back" onclick='location.back()'></a>
+        </div>
+        <div class="title">公告列表</div>
+        <div class="fui-header-right">&nbsp;</div>
+    </div>
+
+    {if ($data)}
+    <div class='fui-content' style='margin-top:5px;'>
+        <?php foreach($data as $k=>$v){ ?>
+        <div class="fui-list-group">
+            <a class="fui-list" href="{php echo mobileUrl('member/notice_info',array('id'=>$v['id']))}" data-nocache="true">
+            <!--<a class="fui-list" href="{php echo $v['link']}" data-nocache="true">-->
+            <div class="fui-list-inner">
+                <div class="title nickname"><?php echo $v['title'] ?></div>
+                <div  style="font-size: 12px;color: #0a0a0a">发布时间：<?php echo date('Y-m-d H:i:s',$v['createtime']) ?></div>
+            </div>
+            <div class="fui-list-angle">
+                <div class="angle"></div>
+            </div>
+            </a>
+        </div>
+        <?php } ?>
+    </div>
+    {else}
+    <div class='fui-content' style='margin-top:5px;'>
+        <p align="center">暂无公告消息!</p>
+
+    </div>
+    {/if}
+</div>
+
+

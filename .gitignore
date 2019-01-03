@@ -1,0 +1,11 @@
+.idea
+*.log
+attachment
+data/logs
+data/patch
+data/tpl
+data/update
+addons/ewei_shopv2/data/qrcode
+app/log.txt
+addons/ewei_shopv2/plugin/commission/core/log
+addons/ewei_shopv2/data/poster/

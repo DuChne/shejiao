@@ -1,0 +1,413 @@
+/*PAGE*/
+#topbar .navbar,
+.main-wrapper,
+.page-content {
+    width: 1200px !important;
+}
+
+.panel-video {
+    height: 465px;
+    background: #000;
+    position: relative;
+}
+
+.panel-video .online {
+    position: absolute;
+    color: #fff;
+    left: 10px;
+    top: 10px;
+    padding: 3px 8px;
+    background: rgba(26,179,148, 0.8);
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.panel-video .online.pause {
+    background: rgba(237,85,101, 0.8);
+}
+
+.panel-video .online.stop {
+    background: rgba(204,204,204, 0.8);
+}
+
+.panel-default {
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.panel-default .panel-heading {
+    background: transparent;
+    border-color: #f2f2f2;
+    padding: 10px;
+}
+
+.panel-default .panel-heading.noborder {
+    border-bottom: 0;
+}
+
+.panel-default .panel-heading.nopadding {
+    padding: 0 10px 0 5px;
+    height: 38px;
+    line-height: 38px;
+}
+
+.panel-default .panel-body {
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.panel-default .panel-body.panel-chat {
+    height: 440px;
+    display: none;
+    position: relative;
+}
+
+.panel-default .panel-body.panel-chat p img {
+    max-height: 40px;
+    max-width: 300px;
+}
+
+.panel-default .panel-body.panel-chat[data-tab='visitor'] p {
+    position: relative;
+}
+.panel-default .panel-body.panel-chat[data-tab='visitor'] p:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    right: 0;
+    border-bottom: 1px dashed #eee
+}
+
+.panel-default .panel-body.panel-chat[data-tab='chat'] p .btn-delete,
+.panel-default .panel-body.panel-chat[data-tab='chat'] p .btn-banned {
+    display: none;
+}
+
+.panel-default .panel-body.panel-chat[data-tab='chat'] p:hover .btn-delete,
+.panel-default .panel-body.panel-chat[data-tab='chat'] p:hover .btn-banned {
+    display: inline;
+}
+
+.panel-default .panel-body.panel-chat[data-tab='chat'] p .nickname {
+    color: #44abf7;
+    cursor: pointer;
+}
+
+.panel-default .panel-body.panel-chat p .tip {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.panel-default .panel-body.panel-chat p .tip .text {
+    background: #ccc;
+    color: #fff;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 0 5px;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+.panel-default .panel-body.panel-chat .empty-data {
+    line-height: 360px;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+
+.panel-default .panel-footer {
+    background: #f6f6f6;
+    padding: 5px 10px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    border-color: #f2f2f2;
+    position: relative;
+}
+
+.panel-default .panel-footer .input {
+    height: inherit;
+    background: #fff;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    border-radius: 3px 0 0 3px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.panel-default .panel-footer .input .emoji {
+    line-height: 34px;
+    height: 34px;
+    width: 34px;
+    text-align: center;
+    color: #aaa;
+    position: relative;
+    cursor: pointer;
+}
+
+.panel-default .panel-footer .input .emoji:before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    right: 0;
+    bottom: 5px;
+    border-right: 1px solid #eee;
+}
+
+.panel-default .panel-footer .input .emoji.active .icon {
+    color: #44abf7;
+}
+
+.panel-default .panel-footer .input .emoji .icon {
+    font-size: 18px;
+}
+
+.panel-default .panel-footer .input .btn-ats {
+    position: relative;
+    cursor: default;
+    width: 100px;
+    display: none;
+}
+
+.panel-default .panel-footer .input .btn-ats.more:hover .at-list {
+    display: block;
+}
+
+.panel-default .panel-footer .input .btn-ats .at-list {
+    height: auto;
+    position: absolute;
+    background: #fff;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    border: 1px solid #eee;
+    border-bottom: 0;
+    margin-left: -1px;
+    border-radius: 3px 3px 0 0;
+    padding: 0 14px 4px 4px;
+    display: none;
+}
+
+.panel-default .panel-footer .input .btn-ats .item {
+    width: 100%;
+    margin: 0;
+    line-height: 32px;
+    position: relative;
+    font-size: 12px;
+}
+
+.panel-default .panel-footer .input .btn-ats .item.big {
+    padding: 0 14px 0 4px;
+    line-height: 34px;
+    font-size: 13px;
+}
+
+.panel-default .panel-footer .input .btn-ats .item .text {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #888;
+}
+
+.panel-default .panel-footer .input .btn-ats .item.big .text {
+    color: #666;
+}
+
+
+.panel-default .panel-footer .input .btn-ats .item:before {
+    content: '';
+    position: absolute;
+    right: 0px;
+    left: 8px;
+    bottom: 0;
+    border-bottom: 1px solid #eee;
+}
+
+.panel-default .panel-footer .input .btn-ats .item.big:before {
+    border: 0;
+}
+
+.panel-default .panel-footer .input .btn-ats .item .at-remove {
+    position: absolute;
+    top: 0;
+    right: -10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.panel-default .panel-footer .input .btn-ats .item.big .at-remove {
+    position: absolute;
+    top: 0;
+    right: 4px;
+    font-size: 16px;
+}
+
+.panel-default .panel-footer .input input {
+    border: 0px;
+    outline: 0;
+    padding: 0 8px;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.panel-default .panel-footer .btn {
+    border-radius: 0 3px 3px 0;
+    background: #44abf7;
+    border: 0;
+}
+
+.panel-default .panel-footer .emoji-list {
+    position: absolute;
+    height: 116px;
+    background: #fbfbfb;
+    top: 50px;
+    left: 10px;
+    right: 10px;
+    border: 1px solid #f2f2f2;
+    border-radius: 3px;
+    z-index: 99;
+    display: none;
+}
+
+.panel-default .panel-footer .emoji-list:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 40px;
+    width: 0;
+    height: 0;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #f2f2f2;
+    border-left: 10px solid transparent;
+}
+
+.panel-default .panel-footer .emoji-list:after {
+    content: '';
+    position: absolute;
+    top: -9px;
+    left: 41px;
+    width: 0;
+    height: 0;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid #fbfbfb;
+    border-left: 9px solid transparent;
+}
+
+.panel-default .panel-footer .emoji-list .item {
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin: 2px;
+    cursor: pointer;
+}
+.panel-default .panel-footer .emoji-list .item img {
+    height: 24px;
+    width: 24px;
+    vertical-align: middle;
+}
+
+.panel-default.panel-push {
+    margin-top: 14px;
+}
+
+.panel-default.panel-push .panel-heading {
+    padding: 13px 10px;
+}
+
+.panel-default.panel-push .btn-loading,
+.panel-default.panel-push .btn-play,
+.panel-default.panel-push .btn-pause,
+.panel-default.panel-push .btn-stop {
+    display: none;
+    border: 1px solid #f2f2f2;
+    padding: 5px 12px;
+    font-size: 12px;
+    color: #666;
+}
+
+.panel-default.panel-push .btn-loading {
+    color: #666;
+    display: inline;
+}
+
+.panel-default.panel-push .btn-play {
+    background: #1ab394;
+    border-color: #1ab394;
+    color: #fff;
+}
+
+.panel-default.panel-push .btn-pause {
+    background: #ed5565;
+    border-color: #ed5565;
+    color: #fff;
+}
+
+.panel-default.panel-push .empty-data {
+    line-height: 100px;
+    text-align: center;
+}
+
+.panel-tab-small {
+    line-height: 38px;
+    font-size: 0;
+}
+.panel-tab-small a {
+    height: inherit;;
+    font-size: 12px;
+    color: #333;
+    padding: 0 10px;position: relative;
+    display: inline-block;
+}
+.panel-tab-small a.active:before {
+    position: absolute;
+    content: '';
+    left: 8px;
+    right: 8px;
+    bottom: 1px;
+    border-bottom: 2px solid #44abf7;
+}
+
+.label-primary {
+    background: #44abf7;
+    cursor: pointer;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table > thead {
+    background: #f4f4f4;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > td {
+    border: 0;
+    font-weight: normal;
+    color: #333;
+}
+
+.table > tbody > tr {
+    border-top: 1px solid #f2f2f2;
+}
+
+.table .label {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    padding: 5px 0;
+}
+
+.notice,
+.text-danger a, .text-danger:active, .text-danger:hover {
+    color: #ed5565;
+}

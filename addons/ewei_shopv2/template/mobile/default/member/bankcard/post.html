@@ -1,0 +1,70 @@
+{template '_header'}
+<div class='fui-page  fui-page-current'>
+    <div class="fui-header">
+        <div class="fui-header-left">
+            <a class="back"></a>
+        </div>
+        <div class="title">{if empty($bankcard)}新建{else}编辑{/if}银行卡</div>
+        <div class="fui-header-right">&nbsp;</div>
+    </div>
+    <div class='fui-content'>
+        <form method='post' class='form-ajax' >
+            <input type='hidden' id='id' value="{$bankcard['id']}"/>
+            <div class='fui-cell-group'>
+                <div class='fui-cell must'>
+                    <div class='fui-cell-label'>开户行</div>
+                    <div class='fui-cell-info'>
+					    <select id="bankid" name="bankid">
+							{loop $banklist $key $value}
+							<option value="{$value['id']}">{$value['bankname']}</option>
+							{/loop}
+						</select>
+					</div>
+                </div>
+                <div class='fui-cell must'>
+                    <div class='fui-cell-label'>持卡人</div>
+                    <div class='fui-cell-info'><input type="text" id='realname' name='realname' value="{$bankcard['realname']}" placeholder="请输入持卡人姓名"  class="fui-input"/></div>
+                </div>
+
+
+                <div class='fui-cell must'>
+                    <div class='fui-cell-label'>卡号</div>
+                    <div class='fui-cell-info'><input type="text" id='cardnumber' name='cardnumber' value="{$bankcard['cardnumber']}" placeholder='请输入银行卡号'  class="fui-input"/></div>
+                </div>
+				
+				<div class='fui-cell must'>
+                    <div class='fui-cell-label'>图形验证码</div>
+                    <div class="fui-cell-info">
+						<input type="tel" class='fui-input' id='verifycode2' name='verifycode2' placeholder="请输入图形验证码"  value="" maxlength="4" />
+					</div>
+					<div class="fui-cell-remark noremark">
+						<img src="../web/index.php?c=utility&a=code&r={php echo time()}" style="width: 3.5rem; height: 1.5rem; vertical-align: middle;" id="btnCode2">
+					</div>
+                </div>
+				
+				<div class="fui-cell must">
+					<div class="fui-cell-label">验证码</div>
+					<div class="fui-cell-info"><input type="tel" class='fui-input' id='verifycode' name='verifycode' placeholder="5位验证码"  value="" maxlength="5" /></div>
+					<div class="fui-cell-remark noremark"><a class="btn btn-default btn-default-o btn-sm" id="btnCode">获取验证码</a></div>
+				</div>
+            </div>
+
+
+            
+            <a id="btn-submit" class='external btn btn-danger block'>保存</a>
+
+        </form>
+    </div>
+	<script language='javascript' type="text/javascript">
+
+        require(['biz/member/bankcard'], function (modal) {
+            modal.initPost({backurl: "{$_GPC['backurl']}"});
+			modal.initBind({
+				endtime: {php echo intval($endtime)},
+				imgcode: {php echo intval($wapset['smsimgcode'])}
+			});
+        });
+    </script>
+</div>
+
+{template '_footer'}

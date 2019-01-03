@@ -1,0 +1,153 @@
+{template '_header'}
+<div class="page-heading">
+    <span class='pull-right'>
+        {ifp 'shop.nav.add'}
+        	<a class='btn btn-primary btn-sm' href="{php echo merchUrl('information/cl_edit')}"><i class='fa fa-plus'></i> 添加创益质询</a>
+        {/if}
+    </span>
+    <h2>添加创益质询</h2> </div>
+
+<form action="./merchant.php" method="get" class="form-horizontal form-search" role="form">
+    <input type="hidden" name="c" value="site" />
+    <input type="hidden" name="a" value="entry" />
+    <input type="hidden" name="m" value="ewei_shopv2" />
+    <input type="hidden" name="do" value="web" />
+    <input type="hidden" name="r"  value="information.cl_number" />
+    <div class="page-toolbar row m-b-sm m-t-sm">
+        <div class="col-sm-4">
+            <div class="input-group-btn">
+                <button class="btn btn-default btn-sm"  type="button" data-toggle='refresh'><i class='fa fa-refresh'></i></button>
+                {ifp 'shop.nav.edit'}
+                <button class="btn btn-default btn-sm" type="button" data-toggle='batch' data-href="{php echo merchUrl('information/show',array('is_show'=>1))}"><i class='fa fa-circle'></i> 显示</button>
+                <button class="btn btn-default btn-sm" type="button" data-toggle='batch'  data-href="{php echo merchUrl('information/show',array('is_show'=>2))}"><i class='fa fa-circle-o'></i> 隐藏</button>
+                {/if}
+                {ifp 'shop.nav.delete'}
+                <button class="btn btn-default btn-sm" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo merchUrl('information/delete')}"><i class='fa fa-trash'></i> 删除</button>
+                {/if}
+            </div>
+        </div>
+
+
+        <div class="col-sm-6 pull-right">
+            <select name="is_pay" class='form-control input-sm select-sm'>
+                <option value="" {if $_GPC['is_pay'] == ''} selected{/if}>支付状态</option>
+                <option value="1" {if $_GPC['is_pay']== '1'} selected{/if}>未支付</option>
+                <option value="2" {if $_GPC['is_pay'] == '2'} selected{/if}>已支付</option>
+            </select>
+            <select name="status" class='form-control input-sm select-sm'>
+                <option value="" {if $_GPC['status'] == ''} selected{/if}>审核状态</option>
+                <option value="0" {if $_GPC['status']== '0'} selected{/if}>未提交审核</option>
+                <option value="1" {if $_GPC['status'] == '1'} selected{/if}>审核中</option>
+                <option value="2" {if $_GPC['status'] == '2'} selected{/if}>审核通过</option>
+                <option value="3" {if $_GPC['status'] == '3'} selected{/if}>审核失败</option>
+            </select>
+            <div class="input-group">
+                <input type="text" class="input-sm form-control" name='keyword' value="{$_GPC['keyword']}" placeholder="请输入关键词"> <span class="input-group-btn">
+                    <button class="btn btn-sm btn-primary" type="submit"> 搜索</button> </span>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<form action="" method="post">
+    {if count($list)>0}
+    <table class="table table-responsive table-hover" >
+        <thead class="navbar-inner">
+        <tr>
+            <th style="width:25px;"><input type='checkbox' /></th>
+            <th style='width:170px'>标题</th>
+            <th style='width:45px; text-align: center;'>封面</th>
+            <th style='width: 60px;'>阅读数量</th>
+            <th style='width: 60px;'>支付</th>
+            <th style='width:60px'>状态</th>
+            <th style="width: 120px;">审核状态</th>
+            <th style="width: 210px;">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $row}
+        <tr>
+            <td>
+                <input type='checkbox'   value="{$row['id']}"/>
+            </td>
+            <td>
+                {$row['title']}
+            </td>
+            <td>
+                <img style="width:30px;height:30px;padding:1px;border:1px solid #ccc" src="{php echo tomedia($row['head_img'])}">
+            </td>
+            <td>{$row['read_num']}</td>
+            <td>
+                <?php
+                    if (2 == $row['is_pay']) {
+                        echo '已支付';
+                    }else{
+                        echo '未支付';
+                    }
+                ?>
+            </td>
+            <td>
+                <?php
+                    if (1 == $row['is_show']) {
+                        echo '显示';
+                    }else{
+                        echo '隐藏';
+                    }
+                ?>
+            </td>
+            <td>
+                <?php
+                    if (0 == $row['status']) {
+                        echo '未提交审核';
+                    }elseif (1 == $row['status']) {
+                        echo '审核中';
+                    }elseif (2 == $row['status']){
+                        echo '审核通过';
+                    }else{
+                        echo '审核失败';
+                    }
+                ?>
+            </td>
+            <td>
+
+                <a href="{php echo merchUrl('information/cl_edit', array('id' => $row['id']))}" class="btn btn-default btn-sm">
+                    <i class='fa fa-edit'></i> 编辑</a>
+
+
+                {if 1 == $row['is_pay']}
+                <a href="{php echo merchUrl('information/article_pay', array('id' => $row['id']))}" class="btn btn-default btn-sm">
+                    <i class='fa fa-edit'></i> 支付</a>
+                {/if}
+
+                {if 0 == $row['status'] and 2 == $row['is_pay']}
+
+                <button class="btn btn-default btn-sm" type="button" data-toggle='batch'  data-href="{php echo merchUrl('information/examine',array('status'=>1))}"><i class='fa fa-circle-o'></i> 提交审核</button>
+
+                {elseif 3 == $row['status'] and 2 == $row['is_pay']}
+
+                <button class="btn btn-default btn-sm" type="button" data-toggle='batch'  data-href="{php echo merchUrl('information/examine',array('status'=>1))}"><i class='fa fa-circle-o'></i> 重新提交审核</button>
+
+                {/if}
+            </td>
+        </tr>
+        {/loop}
+        <tr>
+            <td colspan='7'>
+                <div class='pagers' style='float:right;'>
+                    {$pager}
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    {$pager}
+    {else}
+    <div class='panel panel-default'>
+        <div class='panel-body' style='text-align: center;padding:30px;'>
+            暂时没有东西
+        </div>
+    </div>
+    {/if}
+</form>
+{template '_footer'}

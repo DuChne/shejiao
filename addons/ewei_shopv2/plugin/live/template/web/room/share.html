@@ -1,0 +1,59 @@
+<div class="form-group">
+	<label class="col-sm-2 control-label">分享标题</label>
+	<div class="col-sm-9 col-xs-12">
+		{ifp 'live.room.edit'}
+		<input type="text" name="share_title" class="form-control" value="{$item['share_title']}" />
+		<span class="help-block">不填写默认直播间名称</span>
+		{else}
+		<input type="hidden" name="share_title" value="{$item['share_title']}" />
+		<div class='form-control-static'>{$item['share_title']}</div>
+		{/if}
+
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label">分享图标</label>
+	<div class="col-sm-9 col-xs-12">
+		{ifp 'live.room.edit'}
+
+		{php echo tpl_form_field_image('share_icon', $item['share_icon']);}
+		<span class="help-block">不选择默认直播间缩略图</span>
+		{else}
+		<input type="hidden" name="share_icon" value="{$item['share_icon']}" />
+		{if !empty($item['share_icon'])}
+		<a href="{php echo tomedia($item['share_icon'])}" target='_blank'>
+		<img src="{php echo tomedia($item['share_icon'])}" style='width:100px;border:1px solid #ccc;padding:1px' />
+		</a>
+		{/if}
+		{/if}
+
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label">分享描述</label>
+	<div class="col-sm-9 col-xs-12">
+		{ifp 'live.room.edit'}
+		<textarea style="height:100px;" name="share_desc" class="form-control" cols="60">{$item['share_desc']}</textarea>
+		{else}
+		<textarea style="height:100px;display: none" name="share_desc" class="form-control" cols="60">{$item['share_desc']}</textarea>
+		<div class='form-control-static'>{$item['share_desc']}</div>
+		{/if}
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label">分享链接</label>
+	<div class="col-sm-9 col-xs-12">
+		{ifp 'live.room.edit'}
+
+		<div class="input-group form-group" style="margin: 0;">
+			<input type="url" name="share_url" class="form-control" value="{$item['share_url']}" id="shareurl" />
+			<span data-input="#shareurl" data-toggle="selectUrl" data-full="true" class="input-group-addon btn btn-default">选择链接</span>
+		</div>
+
+		<span class='help-block'>用户分享出去的链接，默认为直播间链接</span>
+		{else}
+		<input type="hidden" name="share_url" value="{$item['share_url']}" />
+		<div class='form-control-static'>{$item['share_url']}</div>
+		{/if}
+	</div>
+</div>

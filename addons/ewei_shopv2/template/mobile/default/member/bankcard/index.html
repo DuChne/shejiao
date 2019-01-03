@@ -1,0 +1,52 @@
+{template '_header'}
+<div class='fui-page  fui-page-current'>
+    <div class="fui-header">
+	<div class="fui-header-left">
+	    <a class="back"></a>
+	</div>
+	<div class="title">银行卡</div> 
+	<div class="fui-header-right">&nbsp;</div>
+    </div>
+    <div class='fui-content navbar' >
+
+	
+	<div class='content-empty' {if !empty($list)}style='display:none'{/if}>
+	    <i class='icon icon-location'></i>
+	    <br/>您还没有银行卡信息
+	</div>
+	
+	{loop $list $bankcard}
+	<div class="fui-list-group address-item" style='margin-top:5px;'
+	     data-addressid="{$bankcard['id']}">
+	    <div  class="fui-list" >
+		<div class="fui-list-inner">
+		    <div class="title"><span class='realname'>{$bankcard['realname']}</span> <span class='mobile'>{$bankcard['bankname']}</span></div>
+		    <div class="text">
+			<span class='address'> {php echo substr_replace($bankcard['cardnumber'],'*******',4,8)}</span>
+		    </div>
+		    <div class='bar' >
+			<span class='pull-right'>
+			    <a data-toggle='delete' class='external'>
+				<i class='icon icon-delete'></i> 删除
+			    </a>
+			</span>
+
+			<label class='radio-inline'>
+			    <input type="radio" name='setdefault' data-toggle='setdefault'  class="fui-radio  fui-radio-danger" {if $bankcard['isdefault']}checked{/if} /> 设置默认
+			</label>
+		    </div>
+		</div>
+	    </div>
+	</div> 
+	{/loop}
+
+    </div>
+    <div class='fui-navbar'>
+	<a href="{php echo mobileUrl('member/bankcard/post')}" class='nav-item btn btn-danger external' data-nocache="true"><i class="icon icon-add"></i> 新建银行卡</a>
+    </div>
+    
+    <script language='javascript'>require(['biz/member/bankcard'], function (modal) {
+                    modal.initList();
+                });</script>
+</div> 
+{template '_footer'}
